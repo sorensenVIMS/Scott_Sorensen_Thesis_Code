@@ -30,6 +30,7 @@ subplot(1,2,2);
 imshow(maskImage(im,~mask));
 title('Melt Pond Segmentation Results')
 %% open water fraction
+%this is somewhat hard to see since it is a dark thing...
 im = imread('https://www.dropbox.com/s/09vto8s1lh7fyvv/cam12010988-0-9885.jpg?raw=1');
 mask = openWaterSegment(im);
 figure;
@@ -38,4 +39,4 @@ imshow(im);
 title('Input Image');
 subplot(1,2,2);
 imshow(maskImage(im,mask));
-title('Open Water Segmentation Results')
+title('Open Water Segmentation Results') 

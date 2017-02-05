@@ -9,24 +9,25 @@ close('all');
 tic
 
 % loading images and parameters
-expDir = 'D:\4_cam_reflection_experiment\1425671981\';
-thermLeftCam = '5270\';
-thermRightCam = '5003\';
-visLeftCam = '13232653\';
-visRightCam = '13020556\';
+%expDir = 'D:\4_cam_reflection_experiment\1425671981\';
+%thermLeftCam = '5270\';
+%thermRightCam = '5003\';
+%visLeftCam = '13232653\';
+%visRightCam = '13020556\';
 
 %visImIndex = 147;
 %thermImIndex = 32;
-visFilenameStr = num2str(visImIndex,'%09d');
-thermFilenameStr = num2str(thermImIndex,'%09d');
+%visFilenameStr = num2str(visImIndex,'%09d');
+%thermFilenameStr = num2str(thermImIndex,'%09d');
 
-thermL = imread([expDir thermLeftCam thermFilenameStr '.pgm']);
-thermR = imread([expDir thermRightCam thermFilenameStr '.pgm']);
-visL = imread([expDir visLeftCam visFilenameStr '.ppm']);
-visR = imread([expDir visRightCam visFilenameStr '.ppm']);
+thermL = imread('https://www.dropbox.com/s/786hksp482gky2j/thermL.png?raw=1');
+thermR = imread('https://www.dropbox.com/s/qc91fsptti1b0ef/thermR.png?raw=1');
+visL = imread('https://www.dropbox.com/s/6dss7drla4bzzzq/visL.png?raw=1');
+visR = imread('https://www.dropbox.com/s/e9op76zpdwmrao4/visR.png?raw=1');
 
-visMask = imread('mask.png');
-thermMask = imread('thermMask.png');
+visMask = imread('https://www.dropbox.com/s/ipt5ijzs532xsqp/mask.png?raw=1');
+thermMask = imread('https://www.dropbox.com/s/a5jodvks241bx9a/thermMask.png?raw=1');
+cmappedTex = imread('https://www.dropbox.com/s/319e4pucy6ng3u9/colormapped.png?raw=1');
 
 %%
 load('colorStereoParams');
@@ -97,7 +98,7 @@ initialCentroid = mean(planePts);
 quiver3(initialCentroid(1),initialCentroid(2),initialCentroid(3),...
     initialNorm(1),initialNorm(2),initialNorm(3),50);
 %%
-leftMask = imread('thermMask.png');
+leftMask = thermMask;%imread('thermMask.png');
 
 
 %this can be uncommented to find new good rectification parameters, but I
@@ -216,7 +217,7 @@ for x = 1:size(xyL,1)
     elseif j <1
         j = 1;
     end
-    colors(x,:) = colormappedTex(j,i,:);
+    colors(x,:) = cmappedTex(j,i,:);
     %intensity = double(thermL(j,i));
     %colors(x,:) = [intensity,intensity,intensity]/256;
 end
