@@ -9,29 +9,24 @@ close('all');
 tic
 
 % loading images and parameters
-%expDir = 'D:\4_cam_reflection_experiment\1425671981\';
-%thermLeftCam = '5270\';
-%thermRightCam = '5003\';
-%visLeftCam = '13232653\';
-%visRightCam = '13020556\';
+expDir = 'D:\4_cam_reflection_experiment\1425671981\';
+thermLeftCam = '5270\';
+thermRightCam = '5003\';
+visLeftCam = '13232653\';
+visRightCam = '13020556\';
 
 %visImIndex = 147;
 %thermImIndex = 32;
-%visFilenameStr = num2str(visImIndex,'%09d');
-%thermFilenameStr = num2str(thermImIndex,'%09d');
+visFilenameStr = num2str(visImIndex,'%09d');
+thermFilenameStr = num2str(thermImIndex,'%09d');
 
-thermL = imread('sampleImages/thermL.png');
-thermR = imread('sampleImages/thermR.png');
-visL = imread('sampleImages/visL.png');
-visR = imread('sampleImages/visR.png');
+thermL = imread([expDir thermLeftCam thermFilenameStr '.pgm']);
+thermR = imread([expDir thermRightCam thermFilenameStr '.pgm']);
+visL = imread([expDir visLeftCam visFilenameStr '.ppm']);
+visR = imread([expDir visRightCam visFilenameStr '.ppm']);
 
-%thermL = imread([expDir thermLeftCam thermFilenameStr '.pgm']);
-%thermR = imread([expDir thermRightCam thermFilenameStr '.pgm']);
-%visL = imread([expDir visLeftCam visFilenameStr '.ppm']);
-%visR = imread([expDir visRightCam visFilenameStr '.ppm']);
-
-visMask = imread('sampleImages/mask.png');
-thermMask = imread('sampleImages/thermMask.png');
+visMask = imread('mask.png');
+thermMask = imread('thermMask.png');
 
 %%
 load('colorStereoParams');
@@ -102,6 +97,7 @@ initialCentroid = mean(planePts);
 quiver3(initialCentroid(1),initialCentroid(2),initialCentroid(3),...
     initialNorm(1),initialNorm(2),initialNorm(3),50);
 %%
+leftMask = imread('thermMask.png');
 
 
 %this can be uncommented to find new good rectification parameters, but I
