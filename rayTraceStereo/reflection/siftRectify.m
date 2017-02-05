@@ -1,8 +1,9 @@
-function [rect_params] = siftRectify2( imleft,imright,mask )
+function [rect_params] = siftRectify( imleft,imright,mask )
 %This function is to rectify a set of images (with a masked ROI) using SIFT
 %imleft is the left image
 %imright is the right image
 %mask is the mask for the region of interest (in left image coordinates)
+
 %NOTE: this requires VLFeat and you must run the the setup before running
 %this function. This can be done like this:
 %VLFEATROOT = 'PATH/TOVLFEAT/vlfeat-0.9.20';
