@@ -1,9 +1,11 @@
 function mask = algaeSegment( image )
-%CUSTOMSEGMENT Summary of this function goes here
-%   Detailed explanation goes here
+%%This function applies the colorspace transformation and vectorized
+%thresholding scheme with parameters selected for algae. 
+%image is the input image (rgb)
+%mask is the binary output mask with detected algae
 rthresh = 9;
 gthresh = 7;
 bthresh = 0;
-mimage = minusmin(image);
+[mimage,~] = minusmin(image);
 mask = filterBW(customThresh(mimage,[rthresh,gthresh,bthresh]));
 end

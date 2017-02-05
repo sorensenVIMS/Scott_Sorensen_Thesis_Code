@@ -1,6 +1,9 @@
 function binImage = customThresh( image,thresharr,varargin)
 %CUSTOMTHRESH applies a custom threshold per channel to an image
-%   the thresharr contains an array of channel thresholds. an a
+%image is the input minusmin (rgbi without the i channel) image;
+%   the thresharr contains an array of channel thresholds. 
+% there is an optional array of operands for < or >
+% binImage is the output binary mask from detection.
 if nargin < 3
     gl = [1,1,1];
 else
