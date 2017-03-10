@@ -1,7 +1,11 @@
 function pointCloud= fastStereo( imleft, imright, calParams)
 %FASTSTEREO this function performs a sparse 3D reconstruction based on
 %feature points instead of a full disparity estimation
-%   the function has multiple methods built in
+%imleft is the left stereo image
+%imright is the right stereo image
+%calParams are the stereo calibration parameters
+%   the function has multiple methods built in that can be changed by the
+%   user by commenting and uncommenting
 
 grayleft = rgb2gray(imleft);
 grayright = rgb2gray(imright);

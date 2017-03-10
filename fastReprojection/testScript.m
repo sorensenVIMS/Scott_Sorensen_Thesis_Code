@@ -1,6 +1,6 @@
-%this is the main test Script for 3D reprojection. It will download two
-%sample images, and perform a sparse feature based reconstruction followed
-%by 2D reprojection of the image.
+%% this is the main test Script for 3D reprojection. It will download two
+%% sample images, and perform a sparse feature based reconstruction followed
+%% by 2D reprojection of the image.
 
 load('odenCalParams');
 

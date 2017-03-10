@@ -1,6 +1,10 @@
 function tform = computeHomography( camera,pointcloud,scaleFactor )
 %this function computes the homography from the image plane to the ground
-%plane. 
+%plane. It does so using PCA and by generating correspondences between the
+%image and ground
+%camera is the camera calibration matrix
+%pointcloud is the 3d pointcloud
+%scalefactor is a scale relating reconstruction units to image units
 [coeff,score,latent] = pca(pointcloud(:,1:3));
 basis1 = coeff(:,1);
 basis2 = coeff(:,2);
