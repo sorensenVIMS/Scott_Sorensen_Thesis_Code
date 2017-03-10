@@ -1,11 +1,11 @@
-%this is my attempt at speeding up the undistort code from DLR
-%NOTE: no speed improvements made so far...
+%this code is reproduced from DLR with minor edits
+%NOTE: this is another good place to work on speeding up the code
 
 %Distorted = the distorted point
 %A = the camera matrix
 %k1 and k2 = radial distortion parameters
 
-function [undistorted,n_it] = fastUndistort(distorted,A,k1,k2)
+function [undistorted,n_it] = undistort(distorted,A,k1,k2)
 
 % from image pixels to pinhole-centered normalized distances
 xd_normalized = distorted(1,:) - A(1,3);

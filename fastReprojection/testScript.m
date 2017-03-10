@@ -6,7 +6,7 @@ load('odenCalParams');
 
 imleft = imread('https://www.dropbox.com/s/2rrw9goniorfnb7/00008.jpg?raw=1');
 imright = imread('https://www.dropbox.com/s/gj2g9xsx59mgz87/00008.jpg?raw=1');
-scaleFactor = 20;
+scaleFactor = 40;
 
 %pointcloud = SURFpcseq{x};
 pointCloud= fastStereo( imleft, imright, calParams);

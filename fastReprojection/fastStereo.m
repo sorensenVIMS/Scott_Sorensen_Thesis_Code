@@ -8,7 +8,8 @@ grayright = rgb2gray(imright);
 
 %
 %this is currently using SURF for a feature.
-%
+%cooment this section out and uncomment sift matching to change matching
+%type
 points1 = detectSURFFeatures(grayleft);
 points2 = detectSURFFeatures(grayright);
 
@@ -17,8 +18,7 @@ points2 = detectSURFFeatures(grayright);
  
  indexPairs = matchFeatures(features1, features2);
  
- %matched_points1 = valid_points1(indexPairs(:, 1), :);
- %matched_points2 = valid_points2(indexPairs(:, 2), :);
+
  leftSURFpts = valid_points1(indexPairs(:, 1), :);
  leftpts = leftSURFpts.Location';
  rightSURFpts = valid_points2(indexPairs(:, 2), :);
@@ -34,15 +34,9 @@ leftpts = fa(1:2, matches(1,:));
 rightpts = fb(1:2, matches(2,:));
 %}
 
-% leftA = calParams.leftA;
-% leftk2 = calParams.leftk2;
-% leftk1 = calParams.leftk1;
-% T = calParams.T;
-% rightA = calParams.rightA;
-% R = calParams.R;
-% rightk2 = calParams.rightk2;
-% rightk1 = calParams.rightk1;
 
+%pulling out individual calibration parameters
+%this is going to slow things down but makes it way more readable I think
 leftA = calParams.left.A;
 leftk2 = calParams.left.k2;
 leftk1 = calParams.left.k1;
@@ -54,36 +48,17 @@ R = calParams.R;
 
 
 XYZ=zeros(size(leftpts',1),4);
-pall=fastUndistort(rightpts,rightA,rightk1,rightk2)';
-qall=fastUndistort(leftpts,leftA,leftk1,leftk2)';
-
-%myparams = repmat(calParams,size(pall,1));
-
-
-%xyz = arrayfun(@arrayTri,qall(:,1),qall(:,2),pall(:,1),pall(:,2),myparams)
-    %XYZ(ind,:)=p1(1:4)';
+pall=undistort(rightpts,rightA,rightk1,rightk2)';
+qall=undistort(leftpts,leftA,leftk1,leftk2)';
 
 %triangulate the points
 for ind=1:size(qall,1)
    p1=fastTri(qall(ind,:),pall(ind,:),leftA,rightA,[R' T']);
    XYZ(ind,:)=p1(1:4)';
 end
-% size(XYZ)
-
-
-%%this is to get rid of the points with large triangulation error
-%subpts = XYZ(:,4);
-%index = find(~subpts);
-%XYZ(index,:) = [];
-
-
-
-% size(XYZ)
-% figure;scatter3(XYZ(:,1),XYZ(:,2),XYZ(:,3));
-
  pointCloud = XYZ;
-%figure; showMatchedFeatures(grayleft, grayright, matched_points1, matched_points2); 
-%pointCloud = toc;
+ 
+ 
 
 
 end
