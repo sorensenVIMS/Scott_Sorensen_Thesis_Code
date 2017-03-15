@@ -2,6 +2,9 @@ close all
 clear
 clc
 
+pointSkip = 100; %this is how many points to skip over in reconstruction
+%decrease this for a denser reconstruction, however it will take some time
+
 %load images
 imleft = imread('https://www.dropbox.com/s/38yz17o4jq5gw46/IMG_9508.JPG?raw=1');
 imright = imread('https://www.dropbox.com/s/1txetlh5c6mcrs1/IMG_9916.JPG?raw=1');
@@ -95,7 +98,7 @@ disp(['Total of ' num2str(numPts) ' matches found']);
 airIOR = 1; %air Index Of Refraction
 waterIOR = 1.333; %fresh water Index Of Refraction
 
-for i=1:100:numPts
+for i=1:pointSkip:numPts
             xl = xyL(i,2);
             yl = xyL(i,1);
             xr = xyR(i,2);
@@ -139,5 +142,5 @@ for i=1:100:numPts
 end
 
  meanErr = mean(errorVec); 
- disp(['Mean triangulation error: ' num2str(meanErr)]);
+ disp(['Mean triangulation error: ' num2str(meanErr) ' mm']);
  makePly(pts3D,colorsl,'brainRefracted')
