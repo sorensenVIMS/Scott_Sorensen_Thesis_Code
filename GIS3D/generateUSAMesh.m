@@ -1,6 +1,7 @@
 %This script will write a 3D mesh of the Conterminus USA with correspond
 %texture from MODIS satelite surface temperature from March 2001
 
+meshDir = [pwd '/meshDir/'];
 states = shaperead('usastatelo', 'UseGeoCoords', true); % reading in US states
 states([2,11]) = [];
 lat = [states.Lat];
@@ -76,7 +77,6 @@ end
 
 [r,~] = find(faces>numel(elevs));
 faces(r,:) = [];
-trimesh(faces,gridPts(:,1),gridPts(:,2),elevs/1000)
 notUSA = find(not(or(valid == 0,valid==1)));
 [Lia,Locb] = ismember(faces,notUSA);
 [r,~] = find(Lia);
@@ -86,6 +86,8 @@ faces(r,:) = [];
 figure;
 trimesh(faces,gridPts(:,1),gridPts(:,2),elevs/1000)
 axis ij;
+axis equal;
+title('Elevation map of the USA');
 
 %% Generating vertex normals
 ptCloud =  pointCloud([gridPts(:,1),gridPts(:,2),elevs/1000]);
@@ -108,6 +110,6 @@ vert = [gridPts(:,1),-1*gridPts(:,2),elevs/1000,normals(:,1)];
 
 %% Writing Mesh
 %note this is OS dependent and you may need to modify this function
-%writeObj( vert, texUV, normals, faces, im, '/Users/sorensen/Desktop/Scott_Sorensen_Thesis_Code/GIS3D/models/','mesh2' );
+%writeObj( vert, texUV, normals, faces, im, meshDir,'mesh2' );
 
 
