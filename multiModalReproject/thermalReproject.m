@@ -1,7 +1,8 @@
 function [vert, textureCoord, vnormals, faces] = thermalReproject()
-%function [vert] = parametricSphereSegment( radius )
-%PARAMETRICSPHERESEGMENT will create a mesh for a segment of a sphere for
-%the polarstern infrared images.
+%thermalReproject will create mesh elements for a segment of a sphere for
+%the polarstern infrared images. it will return vertices, corresponding
+%texture coordinates, vertex normals and faces. These are set to be written
+%to an obj file
 
 xres = 5; %resolution in degrees
 yres = 1; %resolution in degrees
@@ -15,18 +16,19 @@ horizonDist = 1000*d;% converting to meters
 angleFromHorizontal = -1*atand(h/horizonDist);
 
 
-%pixelsAboveHorizon = 40;
-
-%determines specifically for this camera setup using the horizon and FOV
-%minY= deg2rad(-.0864-((576-40)*0.03125)); %angle from horizontal to horizon - (pixels below horizon*pixel per degree)
-minY = deg2rad(angleFromHorizontal-((576-40)*pixelPitchy));
-texmaxY = deg2rad((pixelPitchy*40)+(angleFromHorizontal)); %
+%finding minimum and maximum angle of declination
+%determined specifically for this camera setup using the horizon and FOV
+horizPixels = 40;
+minY = deg2rad(angleFromHorizontal-((576-horizPixels)*pixelPitchy));
+texmaxY = deg2rad((pixelPitchy*40)+(angleFromHorizontal));
 maxY= deg2rad(angleFromHorizontal);
 
 xres = deg2rad(xres);
 yres = deg2rad(yres);
 index = 0;
 
+%vertex normals
+vnorm = [0,0,1];
 for theta = 0:xres:2*pi %the full sphere in x direction
     for phi= minY:yres:maxY % min to max y
         
@@ -43,8 +45,7 @@ for theta = 0:xres:2*pi %the full sphere in x direction
         yPos = (phi -minY)/(texmaxY-minY);
         textureCoord(index,:) = [xPos,yPos];
         
-        %calculating vertex normals
-        vnorm = [0,0,1]%[0,0,0] - [x,y,z];
+        %vertex normals
         vnormals(index,:) = vnorm/norm(vnorm);
         
     end
@@ -54,7 +55,7 @@ xSteps = floor(2*pi/xres);
 ySteps = floor((maxY - minY)/yres) + 1;
 
 meshInd =0;
-%upper triangular meshes       
+%upper triangular meshes
 for x = 1:(xSteps)
     for y = 1:(ySteps-1)
         meshInd = meshInd + 1;
@@ -66,7 +67,7 @@ for x = 1:(xSteps)
 end
 %lower triangular meshes
 for x = 1:(xSteps)
-    for y = 1:(ySteps-1);
+    for y = 1:(ySteps-1)
         meshInd = meshInd + 1;
         ind1 = y + (ySteps*(x-1));
         ind2 = ind1 + ySteps + 1;
@@ -76,19 +77,5 @@ for x = 1:(xSteps)
 end
 end
 
-%function [ intersectionPoint ] = planeIntersect( planeCenter,planeNormal,rayOrigin,rayDir)
-%PLANEINTERSECT Summary of this function goes here
-%   Detailed explanation goes here
-%ldotn = dot(rayDir,planeNormal);
-%if ldotn == 0; %line and plane are parallel 
-%    disp('plane and ray are parallel!');
-%    disp('that shouldnt happen');
-%    intersectionPoint = [0,0,0];
-%else
-%   d = ((planeCenter - rayOrigin)*planeNormal')/(ldotn);
-%   intersectionPoint = d*rayDir+rayOrigin;
-%end
-
-%end
 
 

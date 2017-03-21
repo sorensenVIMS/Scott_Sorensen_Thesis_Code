@@ -7,21 +7,20 @@ function [dirs] = getCameraRay( C, R, pts2d )
 dirs = zeros(3, size(pts2d,1));
 pts3d = zeros(3, size(pts2d,1));
 %for each pt, project it
-%can probably vectorize this process, but I am too lazy to figure it out
+%can probably vectorize this process
 for i=1:size(pts2d,1)
     
     pt3d = [pts2d(i,:)';1];
-    pt3d = inv(C')*pt3d; %C' is neccessary for the matlab derived calibration
+    pt3d = inv(C')*pt3d; 
     pt3d = R'*pt3d;
-   % pt3d = pt3d + T'; 
+ 
    
     pts3d(:,i) = pt3d;
     d = pt3d/norm(pt3d);
     dirs(:, i) = [d(1);d(2);d(3)];
 end
 
-dirs = -dirs'; %i added a negative here this may be all sorts of screwy...
-
+dirs = -dirs'; 
 
 end
 

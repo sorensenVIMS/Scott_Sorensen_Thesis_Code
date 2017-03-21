@@ -5,7 +5,7 @@ function [] = writeObj( vert, textureCoord, vnormals, faces, image, location, fi
 %vert is a list of vertices  
 %textureCoord are normalized texture coordinates for each vertex
 %vnorms are normalized normals for each vertex
-%faces... Need to edit this
+%faces are sets of vertices to make polygons
 %image is the image to texture map
 %location is the path to write in
 %filename is the file to write to (note this will actually write 3 files
