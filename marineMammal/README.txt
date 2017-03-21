@@ -2,7 +2,10 @@ This module illustrates the deep learning framework for detection of marine mamm
 This module requires tensorflow installed and configured, see their site for details https://www.tensorflow.org/install/
 The main script is deepbear_classify, but a test script is provided to illustrate a few examples.
 To run the testScipt, simply navigate a terminal to this directory and execute the testScipt.sh
-script. This will run through visible and thermal examples. To run the deepbear_classify script 
+script. This will run through visible and thermal examples. 
+The classify module was written by Wayne Treible and he will have more expertise.
+
+To run the deepbear_classify script 
 
 $ python deepbear_classify.py --help
 usage: deepbear_classify.py [-h] [-s] [-t] [input_path] [output_path]
