@@ -21,7 +21,7 @@ subplot(1,2,1);imshow(imleft);
 title('The original image');
 subplot(1,2,2);imshow(maskImage(imleft,~leftMask));
 title('The region to reconstruct');
-pause(5) %to force it to display image
+pause(.5) %to force it to display image
 
 
 %loading in reconstructed scene 
